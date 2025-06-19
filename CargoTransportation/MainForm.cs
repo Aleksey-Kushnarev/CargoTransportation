@@ -46,7 +46,6 @@ namespace CargoTransportation
             startButton.Click += startButton_Click;
             this.Controls.Add(startButton);
 
-            // Области
             Label mineLabel = new Label { Text = "Карьер", Location = new Point(50, 500), Size = new Size(80, 20) };
             Label loadLabel = new Label { Text = "Погрузка", Location = new Point(350, 500), Size = new Size(80, 20) };
             Label unloadLabel = new Label { Text = "Разгрузка", Location = new Point(700, 500), Size = new Size(80, 20) };
@@ -54,13 +53,13 @@ namespace CargoTransportation
             this.Controls.Add(loadLabel);
             this.Controls.Add(unloadLabel);
 
-            // Бульдозер
+            
             bulldozerBox.Size = new Size(40, 40);
             bulldozerBox.Location = bulldozerPosition;
             bulldozerBox.BackColor = Color.Gray;
             this.Controls.Add(bulldozerBox);
 
-            // Погрузчики
+       
             for (int i = 0; i < 2; i++)
             {
                 loaderBoxes[i] = new PictureBox
@@ -73,7 +72,6 @@ namespace CargoTransportation
                 this.Controls.Add(loaderBoxes[i]);
             }
 
-            // Самосвалы
             for (int i = 0; i < 4; i++)
             {
                 truckBoxes[i] = new PictureBox
@@ -86,7 +84,6 @@ namespace CargoTransportation
                 this.Controls.Add(truckBoxes[i]);
             }
 
-            // Таймер анимации
             animationTimer.Interval = 100;
             animationTimer.Tick += (s, e) => AnimateVehicles();
             animationTimer.Start();
@@ -100,7 +97,7 @@ namespace CargoTransportation
 
         private void AnimateVehicles()
         {
-            // Бульдозер: туда-сюда, но не меняет цвет
+            
             bulldozerPosition.X += 5 * direction;
             if (bulldozerPosition.X > 300 || bulldozerPosition.X < 10)
                 direction *= -1;
@@ -108,7 +105,6 @@ namespace CargoTransportation
             int a = -1;
             
 
-            // Самосвалы: только если статус "moving"
             foreach (var truck in truckBoxes)
             {
                 if (truckStates[truck] == "moving")
@@ -144,11 +140,7 @@ namespace CargoTransportation
                     _ => Color.LightGray
                 };
 
-                if (type == "bulldozer")
-                {
-                    // Не менять цвет бульдозера
-                }
-                else if (type == "loader" && id < loaderBoxes.Length)
+                if (type == "loader" && id < loaderBoxes.Length)
                 {
                     loaderBoxes[id].BackColor = color;
                     loaderStates[loaderBoxes[id]] = status == "работает" ? "working" : "idle";
